@@ -4,7 +4,7 @@ var verb = "POST";
 function postToSlack(text){
 	var data = JSON.stringify({
 		"channel": "#wtb",
-		"username": "here is the beer",
+		"username": "There's the beer",
 		"text": text,
 		"icon_emoji": ":beers:"
 	});

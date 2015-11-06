@@ -108,8 +108,7 @@ var app = (function()
 		$('#found-beacons').empty();
 
 		var timeNow = Date.now();
-		var LastKnownLocation;
-		
+
 		// Update beacon list.
 		$.each(beacons, function(key, beacon)
 		{
@@ -126,7 +125,6 @@ var app = (function()
 					'<li>'
 					+	'<strong>UUID: ' + beacon.uuid + '</strong><br />'
 					+	'Major: ' + beacon.major + '<br />'
-
 					+	'Minor: ' + beacon.minor + '<br />'
 					+	'Proximity: ' + beacon.proximity + '<br />'
 					+	'RSSI: ' + beacon.rssi + '<br />'
@@ -135,30 +133,28 @@ var app = (function()
 					+ '</li>'
 				);
 
-				$('#warning').remove();
 				$('#found-beacons').append(element);
-				var CurrentBeaconLocation = displayCurrentLocation(beacon);
-				$('#CurrentLocation').replaceWith(CurrentBeaconLocation);
+				var CurrentLocation = displayCurrentLocation(beacon);
+				$('#CurrentLocation').replaceWith(CurrentLocation);
 				
 				var timestamp = new Date();
 				var dateTime = timestamp.getHours() + ":" + timestamp.getMinutes();
 				
 				if (beacon.proximity == "ProximityImmediate" ||
 					beacon.proximity == "ProximityNear" ){
-						if (hashtable[beacon.name] == "ProximityFar" || hashtable[beacon.name] == null){
-							postToSlack(dateTime);
-							postToSlack("The beer cart is entering " + CurrentBeaconLocation + ".");
+						if (hashtable[beacon.name] == "ProximityFar" || hashtable[beacon.name] == null){							
+							postToSlack("[" + dateTime + "] The beer cart is entering " + CurrentLocation + ".");
 						};					
 				};
 				
 				if (beacon.proximity == "ProximityFar" ||
 					beacon.proximity == null ){
-						if (hashtable[beacon.name] == "ProximityImmediate" || hashtable[beacon.name] == "ProximityNear"){
-							postToSlack(dateTime);
-							postToSlack("The beer cart is leaving " + CurrentBeaconLocation  + ".");
+						if (hashtable[beacon.name] == "ProximityImmediate" || hashtable[beacon.name] == "ProximityNear"){							
+							postToSlack("[" + dateTime + "] The beer cart is leaving " + CurrentLocation  + ".");
 						};					
 				};
 				hashtable[beacon.name] = beacon.proximity;
+				
 			}
 		});
 	}
