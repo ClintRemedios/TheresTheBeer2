@@ -123,6 +123,7 @@ var app = (function()
 					'<li>'
 					+	'<strong>UUID: ' + beacon.uuid + '</strong><br />'
 					+	'Major: ' + beacon.major + '<br />'
+
 					+	'Minor: ' + beacon.minor + '<br />'
 					+	'Proximity: ' + beacon.proximity + '<br />'
 					+	'RSSI: ' + beacon.rssi + '<br />'
@@ -133,7 +134,7 @@ var app = (function()
 
 				$('#warning').remove();
 				$('#found-beacons').append(element);
-				var CurrentLocation = "Human Resources";
+				var CurrentLocation = displayCurrentLocation(beacon);
 				$('#CurrentLocation').replaceWith(CurrentLocation);
 			}
 		});
@@ -142,9 +143,6 @@ var app = (function()
 	return app;
 })();
 
-function displayCurrentLocation()
-{
 
-}
 
 app.initialize();
